@@ -10,7 +10,7 @@ It is assumed this test will be executed in a UNIX-like environment.
 
 
  
-1. Open a terminal window and clone the repository to your system
+1. Open a terminal window and clone the repository to your system. (You may be required to download Comand Line Developer Tools, if it is not already installed on your system, after it's installed continue cloning this repository.)
 ```
 git clone https://github.com/janicemiranda/fetch-sdet-coding-exercise.git
 ```
