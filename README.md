@@ -1,21 +1,22 @@
 # Fetch SDET Coding Exercise
 
-This repository contains is a test automation project that uses Webdriver.IO and Cucumber to resolve a game where we must find a fake gold bar amongst a provided set of 9 gold bars. The test automation is used against a react app that simulates the scaling process. The objective of this test automation is to display the process where the fake gold bar is found using the least number of weighings.
+This repository contains a test automation project that uses Webdriver.IO and Cucumber to resolve a game where we must find a fake gold bar amongst a provided set of 9 gold bars. The test automation is used against a react app that simulates the scaling process. The objective of this test automation is to display the process of finding the fake gold bar using the least number of weighings.
 
 
 
 ## Installation and Execution
 
-It is assumed this test will be executed in a UNIX-like environment.
+- It is assumed this test will be executed in a UNIX-like environment.
+- Google Chrome browser must be installed in order to run the test automation.
 
 
  
-1. Open a terminal window and clone the repository to your system. (You may be required to download Comand Line Developer Tools, if it is not already installed on your system, after it's installed continue cloning this repository.)
+1. Download and unzip the project .zip file or you may also open a terminal window and clone the repository to your system. 
 ```
 git clone https://github.com/janicemiranda/fetch-sdet-coding-exercise.git
 ```
-
-2. Install Node.js
+2. Open the project file path to the terminal
+3. Run the following commands to install Node.js
 - Install Node Version Manager
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
