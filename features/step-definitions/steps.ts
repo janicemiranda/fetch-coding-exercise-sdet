@@ -85,7 +85,7 @@ When(/^I locate the group containing the fake bar$/, async function () {
     this.remainingBars = this.remainingBarsDiv[0].bars;
   } else {
     // Join the groups containing the real gold bars
-    const realGoldBars = this.remainingBarsDiv[1].bars.concat(this.remainingBarsDiv[1].bars);
+    const realGoldBars = this.remainingBarsDiv[1].bars.concat(this.remainingBarsDiv[0].bars);
 
     // Eliminate the real gold bars from the original array
     // We are left with a smaller group containing the fake bar
