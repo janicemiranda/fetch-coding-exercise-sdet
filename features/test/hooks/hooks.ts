@@ -5,10 +5,7 @@ Before(function (scenario) {
   console.log(`Starting scenario: ${scenario.pickle.name}`);
   //Initialize global variables
   this.remainingBars = [];
-  this.stack1 = [];
-  this.stack2 = [];
-  this.stack3 = [];
-  this.remainingBars = [];
+  this.remainingBarsDiv = [];
   this.fakeBar = '';
 });
 
