@@ -19,10 +19,16 @@ Given(/^there are (\d+) gold bars$/, async function (amount) {
 });
 
 /* Divide the 9 gold bars into 3 groups */
-When(/^I divide the gold bars into 3 stacks$/, async function () {
-  this.stack1 = this.remainingBars.slice(0, 3);
-  this.stack2 = this.remainingBars.slice(3, 6);
-  this.stack3 = this.remainingBars.slice(6, 9);
+When(/^I divide the gold bars into (\d+) stacks$/, async function (stackNum) {
+  // Get the amount of bars for each stack
+  const barsInStack = this.remainingBars.length / stackNum;
+
+  // Store the divided stacks with their bars
+  for (let i = 0; i < stackNum; i++) {
+    const start = i * barsInStack;
+    const end = (i + 1) * barsInStack;
+    this.remainingBarsDiv.push({ stack: i + 1, bars: this.remainingBars.slice(start, end) });
+  }
 });
 
 /* Insert the values of the first group to the left side
@@ -32,10 +38,10 @@ When(/^I add the (first|second) stack to the (left|right) bowl$/, async function
   let stack;
   switch (group) {
     case 'first':
-      stack = this.stack1;
+      stack = this.remainingBarsDiv[0].bars;
       break;
     case 'second':
-      stack = this.stack2;
+      stack = this.remainingBarsDiv[1].bars;
       break;
   }
   for (let i = 0; i < stack.length; i++) {
@@ -74,12 +80,12 @@ When(/^I locate the group containing the fake bar$/, async function () {
   const result = await ChallengePage.firstWeighIn.getText();
 
   if (result.includes('>')) {
-    this.remainingBars = this.stack2;
+    this.remainingBars = this.remainingBarsDiv[1].bars;
   } else if (result.includes('<')) {
-    this.remainingBars = this.stack1;
+    this.remainingBars = this.remainingBarsDiv[0].bars;
   } else {
     // Join the groups containing the real gold bars
-    const realGoldBars = this.stack1.concat(this.stack2);
+    const realGoldBars = this.remainingBarsDiv[1].bars.concat(this.remainingBarsDiv[0].bars);
 
     // Eliminate the real gold bars from the original array
     // We are left with a smaller group containing the fake bar
@@ -120,6 +126,9 @@ Then('I click on the fake bar', async function () {
 
 /* Verify that the correct alert message is displayed after clicking on the fake bar */
 Then(/^I should see the alert "(.*)"$/, async (alertMsg) => {
+  await browser.waitUntil(async () => {
+    return await browser.isAlertOpen();
+  });
   const alertText = await browser.getAlertText();
   expect(alertText).toEqual(alertMsg);
 });

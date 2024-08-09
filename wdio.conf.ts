@@ -133,7 +133,6 @@ export const config: Options.Testrunner = {
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
   reporters: ['spec'],
-
   // If you are using Cucumber you need to specify the location of your step definitions.
   cucumberOpts: {
     // <string[]> (file/dir) require files before executing features
@@ -160,6 +159,7 @@ export const config: Options.Testrunner = {
     timeout: 60000,
     // <boolean> Enable this config to treat undefined definitions as warnings.
     ignoreUndefinedDefinitions: false,
+    format: ['json:reports/cucumber_report.json'],
   },
 
   //
@@ -170,6 +170,10 @@ export const config: Options.Testrunner = {
   // it and to build services around it. You can either apply a single function or an array of
   // methods to it. If one of them returns with a promise, WebdriverIO will wait until that promise got
   // resolved to continue.
+  onComplete: () => {
+    const reporter = require('./cucumber-html-reporter-config');
+    reporter.generate();
+  },
   /**
    * Gets executed once before all workers get launched.
    * @param {object} config wdio configuration object
