@@ -126,6 +126,9 @@ Then('I click on the fake bar', async function () {
 
 /* Verify that the correct alert message is displayed after clicking on the fake bar */
 Then(/^I should see the alert "(.*)"$/, async (alertMsg) => {
+  await browser.waitUntil(async () => {
+    return await browser.isAlertOpen();
+  });
   const alertText = await browser.getAlertText();
   expect(alertText).toEqual(alertMsg);
 });

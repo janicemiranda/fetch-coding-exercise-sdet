@@ -9,11 +9,14 @@ Before(function (scenario) {
   this.fakeBar = '';
 });
 
-After(function (scenario) {
+After(async function (scenario) {
   // This hook runs after each scenario
   console.log(`Finished scenario: ${scenario.pickle.name}`);
-  if (scenario.result.status === 'failed') {
-    const screenshot = browser.takeScreenshot();
-    this.attach(screenshot, 'image/png');
+  if (scenario.result.status === 'FAILED') {
+    // Take screenshot
+    const screenshotBase64 = await browser.takeScreenshot();
+    const screenshotBuffer = Buffer.from(screenshotBase64, 'base64');
+    // Attach screenshot to report
+    this.attach(screenshotBuffer, 'image/png');
   }
 });
